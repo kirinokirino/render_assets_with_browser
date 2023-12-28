@@ -46,16 +46,21 @@ print("launching webdriver")
 cService = webdriver.FirefoxService(executable_path='/usr/bin/geckodriver')
 driver = webdriver.Firefox(service = cService)
 driver.get("file:///home/k/Documents/Web/fonts/rendered_template.html")
-screenshot = driver.get_screenshot_as_png()
 
-print("cropping the screenshot")
+# Unhide selected element, make a screenshot, crop it, save it, hide it again
 element = by_id(driver, "content")
-x, y = element.location['x'], element.location['y']
-width, height = element.size['width'], element.size['height']
-imageStream = io.BytesIO(screenshot)
-image = Image.open(imageStream)
-image = image.crop((int(x), int(y), int(width + x), int(height + y)))
-image.save('./Screenshots/1.png')
+button = by_id(driver, "next_button")
+for i in range(len(assets["lables"])):
+    screenshot = driver.get_screenshot_as_png()
+
+    print("cropping the screenshot")
+    x, y = element.location['x'], element.location['y']
+    width, height = element.size['width'], element.size['height']
+    imageStream = io.BytesIO(screenshot)
+    image = Image.open(imageStream)
+    image = image.crop((int(x), int(y), int(width + x), int(height + y)))
+    image.save('./Screenshots/' + str(i) + '.png')
+    button.click()
 
 print("quitting the webdriver")
 driver.quit()

@@ -7,11 +7,11 @@
 		body {
 			background-color: rgb(255, 0, 255);
 		}
-		#content {
+		div {
 			display: inline-block;
 		}
 		.hidden {
-			display: hidden;
+			display: none;
 		}
 	</style>
 </head>
@@ -19,7 +19,25 @@
 <body>
 	<div id="content">
 		{% for lable in lables %}
-		<div class=".hidden" style="display: inline-block; font-family: '{{ lable.font }}';">{{ lable.text }}</div>
+		<div class="hidden" style="font-family: '{{ lable.font }}';">{{ lable.text }}</div>
 		{% endfor %}
 	</div>
+	<button id="next_button" onclick="next_element()" class="button">Next</button>
+
+	<script>
+		let current_element = 0;
+		let content = document.getElementById("content");
+
+		content.children[current_element].classList.remove("hidden");
+
+		function next_element() {
+			if (content.children.length <= current_element) {
+				return;
+			}
+			content.children[current_element].classList.add("hidden");
+			current_element += 1;
+			content.children[current_element].classList.remove("hidden");
+		}
+		
+	</script>
 </body>
