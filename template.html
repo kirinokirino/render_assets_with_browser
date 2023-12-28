@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<head>
+	{% for font in fonts %}
+	<link href="{{ font.link }}" rel=stylesheet>
+	{% endfor %}
+	<style>
+		body {
+			background-color: rgb(255, 0, 255);
+		}
+		#content {
+			display: inline-block;
+		}
+		.hidden {
+			display: hidden;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="content">
+		{% for lable in lables %}
+		<div class=".hidden" style="display: inline-block; font-family: '{{ lable.font }}';">{{ lable.text }}</div>
+		{% endfor %}
+	</div>
+</body>
